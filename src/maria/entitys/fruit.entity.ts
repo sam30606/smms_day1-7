@@ -5,9 +5,9 @@ export class Fruit {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column({ type: 'varchar', unique: true })
   name: string;
 
-  @Column()
+  @Column({ type: 'decimal' })
   price: number;
 }

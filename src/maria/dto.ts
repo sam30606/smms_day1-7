@@ -1,10 +1,10 @@
 import { ApiProperty } from '@nestjs/swagger';
 export class FindOneQuery {
-  @ApiProperty({ example: '0' })
+  @ApiProperty({ example: '0', required: false })
   id: number;
-  @ApiProperty({ example: 'apple' })
+  @ApiProperty({ example: 'apple', required: false })
   name: string;
-  @ApiProperty({ example: '1' })
+  @ApiProperty({ example: '1', required: false })
   price: number;
 }
 export class InsertQuery {

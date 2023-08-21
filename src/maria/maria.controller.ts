@@ -31,15 +31,19 @@ export class MariaController {
   @ApiTags('maria')
   @ApiOperation({ summary: 'FindOne' })
   @ApiOkResponse({ type: OKFindOne })
-  async findOne(@Query() findOneQuery: FindOneQuery) {
+  findOne(@Query() findOneQuery: FindOneQuery) {
     this.logger.log('findOne');
-    return this.mariaService.findOne(findOneQuery.id);
+    return this.mariaService.findOne({
+      id: findOneQuery.id,
+      name: findOneQuery.name,
+      price: findOneQuery.price,
+    });
   }
   @Get('all')
   @ApiTags('maria')
   @ApiOperation({ summary: 'FindAll' })
   @ApiOkResponse({ type: OKFindAll })
-  async findAll() {
+  findAll() {
     this.logger.log('findAll');
     return this.mariaService.findAll();
   }
@@ -47,7 +51,7 @@ export class MariaController {
   @ApiTags('maria')
   @ApiOperation({ summary: 'Insert' })
   @ApiOkResponse({ type: OKInsert })
-  async insert(@Query() insertQuery: InsertQuery) {
+  insert(@Query() insertQuery: InsertQuery) {
     this.logger.log('insert');
     return this.mariaService.insert(insertQuery.name, insertQuery.price);
   }
@@ -55,7 +59,7 @@ export class MariaController {
   @ApiTags('maria')
   @ApiOperation({ summary: 'Update' })
   @ApiOkResponse({ type: OKUpdate })
-  async update(@Query() updateQuery: UpdateQuery) {
+  update(@Query() updateQuery: UpdateQuery) {
     this.logger.log('update');
     return this.mariaService.update(
       updateQuery.id,
@@ -67,7 +71,7 @@ export class MariaController {
   @ApiTags('maria')
   @ApiOperation({ summary: 'Delete' })
   @ApiOkResponse({ type: OKDelete })
-  async delete(@Query() deleteQuery: DeleteQuery) {
+  delete(@Query() deleteQuery: DeleteQuery) {
     this.logger.log('delete');
     return this.mariaService.delete(deleteQuery.id);
   }

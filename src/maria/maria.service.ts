@@ -9,21 +9,36 @@ export class MariaService {
     private fruitRepo: Repository<Fruit>,
   ) {}
 
-  findAll(): Promise<Fruit[]> {
-    return this.fruitRepo.find();
+  async findAll(): Promise<Fruit[]> {
+    return await this.fruitRepo.find();
   }
 
-  findOne(id: number): Promise<Fruit | null> {
-    return this.fruitRepo.findOneBy({ id });
+  async findOne({
+    id = null,
+    name = null,
+    price = null,
+  }: {
+    id?: number | null;
+    name?: string | null;
+    price?: number | null;
+  }): Promise<Fruit | null> {
+    return await this.fruitRepo.findOneBy({
+      id: id,
+      name: name,
+      price: price,
+    });
   }
 
   async delete(id: number): Promise<void> {
     await this.fruitRepo.delete(id);
   }
-  insert(name: string, price: number): any {
-    return this.fruitRepo.insert({ name: name, price: price });
+
+  async insert(name: string, price: number): Promise<object> {
+    if (this.findOne({ name: name }))
+      return { status: 'error', msg: 'name exist' };
+    else return await this.fruitRepo.insert({ name: name, price: price });
   }
-  update(id: number, name: string, price: number): any {
-    return this.fruitRepo.update(id, { name: name, price: price });
+  async update(id: number, name: string, price: number): Promise<object> {
+    return await this.fruitRepo.update(id, { name: name, price: price });
   }
 }
